@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="./index.js"></script>
+    <script type="module" src="./create.js"></script>
+    <script type="module" src="./storage.js"></script>
+    <script type="module" src="./remove.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>TodoList</title>
+</head>
+<body>
+    <main class="glass">
+        <div class="inputBox">
+            <form id="inputForm">
+                <input type="text" required>
+                <button type="submit">Add</button>
+            </form>
+        </div>
+        <span>Today's TodoList</span>
+        <div class="todoBox"></div>
+        <button type="button" id="clear">Clear</button>
+    </main>
+</body>
+</html>
