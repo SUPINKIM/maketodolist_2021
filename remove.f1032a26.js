@@ -3,4 +3,4 @@ parcelRequire=function(e,r,t,n){var i,o="function"==typeof parcelRequire&&parcel
 },{}],"ULhu":[function(require,module,exports) {
 "use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.checkClear=t,exports.deleteTodoList=d,exports.deleteAll=l;var e=require("./storage"),o=document.getElementById("clear");function t(){document.querySelector(".todoBox").hasChildNodes()?o.disabled=!1:(o.disabled=!0,(0,e.deleteAllLocal)())}function d(o){(0,e.deleteTodoListLocal)(o.id),(0,e.removeFinishID)(o.id),document.getElementById("".concat(o.id)).remove(),t()}function l(){(0,e.deleteAllLocal)();for(var o=document.querySelector(".todoBox");o.hasChildNodes();)o.removeChild(o.firstChild)}
 },{"./storage":"KZ7Y"}]},{},["ULhu"], null)
-//# sourceMappingURL=/remove.f1032a26.js.map
+//# sourceMappingURL=https://supinkim.github.io/maketodolist_2021/remove.f1032a26.js.map
