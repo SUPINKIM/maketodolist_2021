@@ -10,12 +10,18 @@ const todoBox = document.querySelector('.todoBox');
 let finishID = [];
 
 function makeTodoList(state) {
-  if (state.id > localStorage.key(localStorage.length - 1)) {
+  let order = [];
+  if (localStorage.length !== 0) {
+    for (let i = 0, len = localStorage.length; i < len; ++i) {
+      order.push(localStorage.key(i));
+    }
+    order = order.filter((ids) => ids !== 'finish');
+    order.sort((a, b) => a - b);
+  }
+  if (state.id > Math.max(...order)) {
     saveTodoList(state);
   }
-  const list = getTodoList(state.id);
-
-  if (list !== null) {
+  if (getTodoList(state.id) !== null) {
     const todobox = document.createElement('div');
     todobox.id = state.id;
     if (getTodoList('finish') && getTodoList('finish').includes(state.id)) {
@@ -24,9 +30,10 @@ function makeTodoList(state) {
     const todo = document.createElement('span');
     const doneBnt = document.createElement('button');
     const delBnt = document.createElement('button');
-    const now = `<span id="stampTime">${
-      JSON.parse(localStorage.getItem(`${state.id}`)).time
-    }</span>`;
+    const now =
+      '<span id="stampTime">' +
+      JSON.parse(localStorage.getItem(`${state.id}`)).time +
+      '</span>';
     todo.innerText = JSON.parse(localStorage.getItem(`${state.id}`)).text;
     doneBnt.innerText = '✔︎';
     doneBnt.id = 'done';

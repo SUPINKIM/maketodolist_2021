@@ -247,17 +247,42 @@ var _storage = require("./storage");
 
 var _remove = require("./remove");
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 var todoBox = document.querySelector('.todoBox');
 var finishID = [];
 
 function makeTodoList(state) {
-  if (state.id > localStorage.key(localStorage.length - 1)) {
+  var order = [];
+
+  if (localStorage.length !== 0) {
+    for (var i = 0, len = localStorage.length; i < len; ++i) {
+      order.push(localStorage.key(i));
+    }
+
+    order = order.filter(function (ids) {
+      return ids !== 'finish';
+    });
+    order.sort(function (a, b) {
+      return a - b;
+    });
+  }
+
+  if (state.id > Math.max.apply(Math, _toConsumableArray(order))) {
     (0, _storage.saveTodoList)(state);
   }
 
-  var list = (0, _storage.getTodoList)(state.id);
-
-  if (list !== null) {
+  if ((0, _storage.getTodoList)(state.id) !== null) {
     var todobox = document.createElement('div');
     todobox.id = state.id;
 
@@ -268,7 +293,7 @@ function makeTodoList(state) {
     var todo = document.createElement('span');
     var doneBnt = document.createElement('button');
     var delBnt = document.createElement('button');
-    var now = "<span id=\"stampTime\">".concat(JSON.parse(localStorage.getItem("".concat(state.id))).time, "</span>");
+    var now = '<span id="stampTime">' + JSON.parse(localStorage.getItem("".concat(state.id))).time + '</span>';
     todo.innerText = JSON.parse(localStorage.getItem("".concat(state.id))).text;
     doneBnt.innerText = '✔︎';
     doneBnt.id = 'done';
@@ -336,7 +361,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56806" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52025" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

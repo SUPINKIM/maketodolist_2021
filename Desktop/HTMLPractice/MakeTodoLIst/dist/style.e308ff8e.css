@@ -187,7 +187,9 @@ body {
 @media screen and (max-width: 400px) {
   .glass {
     width: 90%;
-    height: 650px;
+    height: 90%;
+    overflow: scroll;
+    row-gap: 0.4em;
   }
   .inputBox {
     width: 100%;

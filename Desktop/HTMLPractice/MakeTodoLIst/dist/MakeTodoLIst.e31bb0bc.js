@@ -117,7 +117,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"node_modules/symbol-observable/es/ponyfill.js":[function(require,module,exports) {
+})({"../../../node_modules/symbol-observable/es/ponyfill.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -144,7 +144,7 @@ function symbolObservablePonyfill(root) {
 }
 
 ;
-},{}],"node_modules/symbol-observable/es/index.js":[function(require,module,exports) {
+},{}],"../../../node_modules/symbol-observable/es/index.js":[function(require,module,exports) {
 var global = arguments[3];
 "use strict";
 
@@ -175,7 +175,7 @@ if (typeof self !== 'undefined') {
 var result = (0, _ponyfill.default)(root);
 var _default = result;
 exports.default = _default;
-},{"./ponyfill.js":"node_modules/symbol-observable/es/ponyfill.js"}],"node_modules/redux/es/redux.js":[function(require,module,exports) {
+},{"./ponyfill.js":"../../../node_modules/symbol-observable/es/ponyfill.js"}],"../../../node_modules/redux/es/redux.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -855,7 +855,7 @@ function isCrushed() {}
 if ("development" !== 'production' && typeof isCrushed.name === 'string' && isCrushed.name !== 'isCrushed') {
   warning('You are currently using minified code outside of NODE_ENV === "production". ' + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or setting mode to production in webpack (https://webpack.js.org/concepts/mode/) ' + 'to ensure you have the correct code for your production build.');
 }
-},{"symbol-observable":"node_modules/symbol-observable/es/index.js"}],"storage.js":[function(require,module,exports) {
+},{"symbol-observable":"../../../node_modules/symbol-observable/es/index.js"}],"storage.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -985,17 +985,42 @@ var _storage = require("./storage");
 
 var _remove = require("./remove");
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 var todoBox = document.querySelector('.todoBox');
 var finishID = [];
 
 function makeTodoList(state) {
-  if (state.id > localStorage.key(localStorage.length - 1)) {
+  var order = [];
+
+  if (localStorage.length !== 0) {
+    for (var i = 0, len = localStorage.length; i < len; ++i) {
+      order.push(localStorage.key(i));
+    }
+
+    order = order.filter(function (ids) {
+      return ids !== 'finish';
+    });
+    order.sort(function (a, b) {
+      return a - b;
+    });
+  }
+
+  if (state.id > Math.max.apply(Math, _toConsumableArray(order))) {
     (0, _storage.saveTodoList)(state);
   }
 
-  var list = (0, _storage.getTodoList)(state.id);
-
-  if (list !== null) {
+  if ((0, _storage.getTodoList)(state.id) !== null) {
     var todobox = document.createElement('div');
     todobox.id = state.id;
 
@@ -1006,7 +1031,7 @@ function makeTodoList(state) {
     var todo = document.createElement('span');
     var doneBnt = document.createElement('button');
     var delBnt = document.createElement('button');
-    var now = "<span id=\"stampTime\">".concat(JSON.parse(localStorage.getItem("".concat(state.id))).time, "</span>");
+    var now = '<span id="stampTime">' + JSON.parse(localStorage.getItem("".concat(state.id))).time + '</span>';
     todo.innerText = JSON.parse(localStorage.getItem("".concat(state.id))).text;
     doneBnt.innerText = '✔︎';
     doneBnt.id = 'done';
@@ -1265,7 +1290,7 @@ clear.addEventListener('click', function (e) {
 });
 showLocalStorage();
 (0, _remove.checkClear)();
-},{"redux":"node_modules/redux/es/redux.js","./create":"create.js","./remove":"remove.js"}],"../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"redux":"../../../node_modules/redux/es/redux.js","./create":"create.js","./remove":"remove.js"}],"../../../.config/yarn/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -1293,7 +1318,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56806" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52025" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
