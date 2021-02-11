@@ -5,7 +5,7 @@ Create my own Todo-list web site.
 
 ✅ 기술 스택 : HTML/CSS/vanilla JS + Redux library
  
-✅ TodoList 홈페이지 : (https://supinkim.github.io/maketodolist_2021/)
+✅ TodoList 홈페이지 : https://supinkim.github.io/maketodolist_2021/
 
 ✅ 노마드 코더 "천하제일 투두 리스트 (To-Do-List) 컨테스트" 참여 👉 [내 페이지가 궁금하다면? 바로가기](https://nomadcoders.co/community/thread/238)
 
